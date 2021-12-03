@@ -2,6 +2,7 @@
   <div>
     <Logo/>
     <Timer/>
+    <FullScreen/>
   </div>
 </template>
 
@@ -10,10 +11,11 @@
 import Logo from "@/components/Logo";
 import Background from "@/components/Background";
 import Timer from "@/components/Timer";
+import FullScreen from "@/components/FullScreen";
 
 export default {
   name: 'App',
-  components: {Timer, Background, Logo}
+  components: {FullScreen, Timer, Background, Logo}
 };
 </script>
 
@@ -36,5 +38,10 @@ export default {
 
 body {
   font-family: 'Vbh', sans-serif;
+  background: #ffffff;
+}
+
+:not(:root):fullscreen::backdrop {
+  background: #ffffff;
 }
 </style>

@@ -72,7 +72,7 @@ export default {
     display: inline-block;
     min-width: 90px;
     padding: 15px 10px;
-    background: rgba(2, 11, 67, .9);
+    background: rgba(2, 11, 67, .6);
     border-radius: 10px;
     border: 2px solid #030d52;
     margin: 15px;

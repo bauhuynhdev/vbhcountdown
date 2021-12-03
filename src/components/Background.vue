@@ -25,7 +25,7 @@ export default {
     height: 100%;
     top: 0;
     left: 0;
-    transform: scale(1.15);
+    transform: scale(1.2);
   }
 }
 </style>

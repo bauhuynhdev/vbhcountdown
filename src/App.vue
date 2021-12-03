@@ -1,6 +1,7 @@
 <template>
   <div>
     <Logo/>
+    <Timer/>
   </div>
 </template>
 
@@ -8,10 +9,11 @@
 
 import Logo from "@/components/Logo";
 import Background from "@/components/Background";
+import Timer from "@/components/Timer";
 
 export default {
   name: 'App',
-  components: {Background, Logo}
+  components: {Timer, Background, Logo}
 };
 </script>
 

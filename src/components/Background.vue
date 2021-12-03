@@ -1,6 +1,7 @@
 <template>
   <div id="background">
-    <iframe src="https://www.youtube.com/embed/videoseries?controls=0&list=PLWz_3WM944uKIqp1XpGCKx8kL1eXB_jMa&autoplay=1&mute=1&loop=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe allow="autoplay" frameborder="0"
+            src="https://www.youtube.com/embed/videoseries?controls=0&list=PLc3uPjELXRb9TwYUNOUbhNLwAfMm_xosL&autoplay=1&mute=1&loop=1"></iframe>
   </div>
 </template>
 

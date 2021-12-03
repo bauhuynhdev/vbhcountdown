@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button type="button" @click="toggle">Zoom</button>
+    <button type="button" @click="toggle"><></button>
   </div>
 </template>
 
@@ -14,23 +14,27 @@ export default {
   },
   methods: {
     toggle() {
-      if (this.is_zoom) {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-          document.webkitExitFullscreen();
-        } else if (document.msExitFullscreen) {
-          document.msExitFullscreen();
+      try {
+        if (this.is_zoom) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          }
+        } else {
+          const body = document.body;
+          if (body.requestFullscreen) {
+            body.requestFullscreen();
+          } else if (body.webkitRequestFullscreen) {
+            body.webkitRequestFullscreen();
+          } else if (body.msRequestFullscreen) {
+            body.msRequestFullscreen();
+          }
         }
-      } else {
-        const body = document.body;
-        if (body.requestFullscreen) {
-          body.requestFullscreen();
-        } else if (body.webkitRequestFullscreen) {
-          body.webkitRequestFullscreen();
-        } else if (body.msRequestFullscreen) {
-          body.msRequestFullscreen();
-        }
+      } catch (e) {
+
       }
       this.is_zoom = !this.is_zoom;
     }
@@ -38,6 +42,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: .1;
 
+  &:hover {
+    opacity: 1;
+  }
+}
 </style>

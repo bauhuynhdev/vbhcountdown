@@ -62,10 +62,11 @@ export default {
     display: inline-block;
     min-width: 90px;
     padding: 10px;
-    background: #020b43;
+    background: rgba(2, 11, 67, .9);
     border-radius: 10px;
     border: 2px solid #030d52;
     margin: 15px;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
 
     & > span {
       color: #ffffff;

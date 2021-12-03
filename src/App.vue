@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Background/>
     <Logo/>
     <Timer/>
     <FullScreen/>

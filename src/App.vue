@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./plugins/normalize.css";
+
 @font-face {
   font-family: "Vbh";
   src: url("./fonts/Regular.ttf") format('truetype');

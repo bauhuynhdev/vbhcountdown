@@ -4,7 +4,7 @@
       <img src="@/assets/logo.png">
     </div>
     <div class="title">
-      <h1>VIETNAM BACKPACKER HOSTELS<br/>NEW YEAR COUNT DOWN</h1>
+      <h2>VIETNAM BACKPACKER HOSTELS<br/>NEW YEAR COUNT DOWN</h2>
     </div>
   </div>
 </template>

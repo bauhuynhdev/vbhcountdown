@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     setTimer() {
-      const target = Date.parse('Dec 31, 2021 00:00:00');
+      const target = Date.parse('Dec 31, 2021 23:59:59');
       const now = new Date;
       const diff = target - now;
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));

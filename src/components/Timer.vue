@@ -5,7 +5,7 @@
     <div>{{ m }}<span>Minutes</span></div>
     <div>{{ s }}<span>Seconds</span></div>
     <div class="country-name">
-      <h1>Vietnam</h1>
+      <h2>Vietnam</h2>
     </div>
   </div>
 </template>
@@ -61,11 +61,12 @@ export default {
   width: 700px;
   text-align: center;
 
-  & > div.country-name > h1 {
-    margin-top: 10px;
+  & > div.country-name > h2 {
+    margin-top: 12px;
     margin-bottom: 0;
     text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
     color: #000000;
+    text-transform: uppercase;
   }
 
   & > div:not(.country-name) {

@@ -18,7 +18,7 @@ export default {
 <style lang="scss" scoped>
 #logo {
   position: fixed;
-  top: 10px;
+  top: 2em;
   left: 50%;
   transform: translateX(-50%);
   display: flex;

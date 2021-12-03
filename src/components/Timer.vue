@@ -4,6 +4,9 @@
     <div>{{ h }}<span>Hours</span></div>
     <div>{{ m }}<span>Minutes</span></div>
     <div>{{ s }}<span>Seconds</span></div>
+    <div class="country-name">
+      <h1>Vietnam</h1>
+    </div>
   </div>
 </template>
 
@@ -49,7 +52,7 @@ export default {
 <style lang="scss" scoped>
 #timer {
   position: fixed;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3em;
@@ -58,10 +61,17 @@ export default {
   width: 700px;
   text-align: center;
 
-  & > div {
+  & > div.country-name > h1 {
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+    color: #000000;
+  }
+
+  & > div:not(.country-name) {
     display: inline-block;
     min-width: 90px;
-    padding: 10px;
+    padding: 15px 10px;
     background: rgba(2, 11, 67, .9);
     border-radius: 10px;
     border: 2px solid #030d52;

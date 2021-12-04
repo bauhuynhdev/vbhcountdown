@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button type="button" @click="toggle">
+    <span @click="toggle">
       <img src="@/assets/zoom-button.png">
-    </button>
+    </span>
   </div>
 </template>
 
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-button {
+span {
   position: fixed;
   top: 10px;
   left: 10px;

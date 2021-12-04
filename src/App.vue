@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Background/>
+    <Background v-if="!$isDevelopment"/>
     <Logo/>
     <Timer/>
     <FullScreen/>

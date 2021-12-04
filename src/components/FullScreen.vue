@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button type="button" @click="toggle"><></button>
+    <button type="button" @click="toggle">
+      <img src="@/assets/zoom-button.png">
+    </button>
   </div>
 </template>
 
@@ -53,6 +55,8 @@ button {
   justify-content: center;
   align-items: center;
   opacity: .1;
+  border-radius: 50%;
+  cursor: pointer;
 
   &:hover {
     opacity: 1;

@@ -4,6 +4,7 @@
     <Logo/>
     <Timer/>
     <FullScreen/>
+    <RequireScreen/>
   </div>
 </template>
 
@@ -13,10 +14,11 @@ import Logo from "@/components/Logo";
 import Background from "@/components/Background";
 import Timer from "@/components/Timer";
 import FullScreen from "@/components/FullScreen";
+import RequireScreen from "@/components/RequireScreen";
 
 export default {
   name: 'App',
-  components: {FullScreen, Timer, Background, Logo}
+  components: {RequireScreen, FullScreen, Timer, Background, Logo}
 };
 </script>
 

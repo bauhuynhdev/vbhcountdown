@@ -31,6 +31,7 @@ export default {
       text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
       margin-top: 0;
       margin-bottom: 0;
+      white-space: nowrap;
     }
   }
 }

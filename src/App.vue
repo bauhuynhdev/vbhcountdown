@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Background v-if="!$isDevelopment"/>
+    <Background/>
     <Logo/>
     <Timer :country="country" @endTimeEvent="endTimeEvent"/>
     <FullScreen/>

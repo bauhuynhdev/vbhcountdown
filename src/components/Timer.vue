@@ -1,11 +1,19 @@
 <template>
   <div id="timer">
-    <div>{{ d }}<span>Days</span></div>
-    <div>{{ h }}<span>Hours</span></div>
-    <div>{{ m }}<span>Minutes</span></div>
-    <div>{{ s }}<span>Seconds</span></div>
-    <div class="country-name">
-      <h2>{{ country.name }}</h2>
+    <div :class="[showTimerCircle ? 'show' : 'hide']" class="countdown-circle">
+      <div class="timer" :class="{'run-circle-timer': showTimerCircle}">
+        <div class="mask"></div>
+      </div>
+      <div class="seconds">{{ s }}</div>
+    </div>
+    <div :class="[!showTimerCircle ? 'show' : 'hide']" class="countdown">
+      <div>{{ d }}<span>Days</span></div>
+      <div>{{ h }}<span>Hours</span></div>
+      <div>{{ m }}<span>Minutes</span></div>
+      <div>{{ s }}<span>Seconds</span></div>
+      <div class="country-name">
+        <h2>{{ country.name }}</h2>
+      </div>
     </div>
   </div>
 </template>
@@ -43,6 +51,9 @@ export default {
         return true;
       }
       return this.d === 0 && this.h === 0 && this.m === 0 && this.s < 1;
+    },
+    showTimerCircle() {
+      return this.d === 0 && this.h === 0 && this.m === 0 && this.s <= 30;
     }
   },
   methods: {
@@ -84,39 +95,110 @@ export default {
 <style lang="scss" scoped>
 #timer {
   position: fixed;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3em;
-  font-weight: 100;
-  color: #ffffff;
-  text-align: center;
+  width: 100%;
+  height: 100%;
 
-  & > div.country-name > h2 {
-    margin-top: 12px;
-    margin-bottom: 0;
-    text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
-    color: #000000;
-    text-transform: uppercase;
-  }
+  & > .countdown-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-  & > div:not(.country-name) {
-    display: inline-block;
-    min-width: 90px;
-    padding: 15px 10px;
-    background: rgba(2, 11, 67, .6);
-    border-radius: 10px;
-    border: 2px solid #030d52;
-    margin: 15px;
-    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+    & > .seconds {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 15em;
+    }
 
-    & > span {
-      color: #ffffff;
-      display: block;
-      margin-top: 5px;
-      font-size: .35em;
-      font-weight: 400;
+    .timer {
+      background: -webkit-linear-gradient(left, #000 50%, #eee 50%);
+      border-radius: 100%;
+      height: calc(var(--size) * 1px);
+      width: calc(var(--size) * 1px);
+      position: relative;
+      -webkit-animation: time calc(var(--duration) * 1s) steps(1000, start) infinite;
+      mask: radial-gradient(transparent 65%, #000 50%);
+    }
+
+    .mask {
+      border-radius: 100% 0 0 100% / 50% 0 0 50%;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 50%;
+      -webkit-animation: mask calc(var(--duration) * 1s) steps(500, start) infinite;
+      -webkit-transform-origin: 100% 50%;
+    }
+
+    @-webkit-keyframes time {
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    @-webkit-keyframes mask {
+      0% {
+        background: #eee;
+        -webkit-transform: rotate(0deg);
+      }
+      50% {
+        background: #eee;
+        -webkit-transform: rotate(-180deg);
+      }
+      50.01% {
+        background: #000000;
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        background: #000000;
+        -webkit-transform: rotate(-180deg);
+      }
     }
   }
+
+  & > .countdown {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    font-weight: 100;
+    color: #ffffff;
+    text-align: center;
+
+    & > div.country-name > h2 {
+      margin-top: 12px;
+      margin-bottom: 0;
+      text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+      color: #000000;
+      text-transform: uppercase;
+    }
+
+    & > div:not(.country-name) {
+      display: inline-block;
+      min-width: 90px;
+      padding: 15px 10px;
+      background: rgba(2, 11, 67, .6);
+      border-radius: 10px;
+      border: 2px solid #030d52;
+      margin: 15px;
+      box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+
+      & > span {
+        color: #ffffff;
+        display: block;
+        margin-top: 5px;
+        font-size: .35em;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+.run-circle-timer {
+  --duration: 31;
+  --size: 400;
 }
 </style>

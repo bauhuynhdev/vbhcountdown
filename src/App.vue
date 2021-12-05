@@ -73,4 +73,14 @@ body {
 :not(:root):fullscreen::backdrop {
   background: #ffffff;
 }
+
+.hide {
+  opacity: 0;
+  transition: all .25s ease-in-out;
+}
+
+.show {
+  opacity: 1;
+  transition: all .25s ease-in-out;
+}
 </style>

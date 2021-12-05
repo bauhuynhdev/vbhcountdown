@@ -5,31 +5,57 @@
     <div>{{ m }}<span>Minutes</span></div>
     <div>{{ s }}<span>Seconds</span></div>
     <div class="country-name">
-      <h2>Vietnam</h2>
+      <h2>{{ country.name }}</h2>
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   name: "Timer",
+  props: ['country'],
   data() {
     return {
       d: 0,
       h: 0,
       m: 0,
-      s: 0
+      s: 0,
+      intervalRunner: undefined
     };
+  },
+  watch: {
+    s() {
+      if (this.endTime) {
+        clearInterval(this.intervalRunner);
+        this.$emit('endTimeEvent', true);
+        this.resetTimer();
+      }
+    },
+    country() {
+      this.runTimer();
+    }
+  },
+  computed: {
+    endTime() {
+      if (this.d < 0) {
+        return true;
+      }
+      return this.d === 0 && this.h === 0 && this.m === 0 && this.s < 1;
+    }
   },
   methods: {
     setTimer() {
-      const target = Date.parse('Dec 31, 2021 23:59:59');
-      const now = new Date;
+      const day = moment().format('DD');
+      const dateTimeText = day + '/12/2021 23:59:59';
+      const target = moment(dateTimeText, 'DD/MM/YYYY HH:mm:ss').unix();
+      const now = moment().add(this.country.timeZone, 'hour').unix();
       const diff = target - now;
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor(diff / (1000 * 60 * 60));
-      const m = Math.floor(diff / (1000 * 60));
-      const s = Math.floor(diff / 1000);
+      const d = Math.floor(diff / (60 * 60 * 24));
+      const h = Math.floor(diff / (60 * 60));
+      const m = Math.floor(diff / 60);
+      const s = Math.floor(diff);
 
       this.d = d;
       this.h = h - d * 24;
@@ -38,9 +64,15 @@ export default {
     },
     runTimer() {
       this.setTimer();
-      setInterval(() => {
+      this.intervalRunner = setInterval(() => {
         this.setTimer();
       }, 1000);
+    },
+    resetTimer() {
+      this.d = 0;
+      this.h = 0;
+      this.m = 0;
+      this.s = 0;
     }
   },
   mounted() {
@@ -58,7 +90,6 @@ export default {
   font-size: 3em;
   font-weight: 100;
   color: #ffffff;
-  width: 700px;
   text-align: center;
 
   & > div.country-name > h2 {

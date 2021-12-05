@@ -2,7 +2,7 @@
   <div>
     <Background v-if="!$isDevelopment"/>
     <Logo/>
-    <Timer/>
+    <Timer :country="country" @endTimeEvent="endTimeEvent"/>
     <FullScreen/>
     <RequireScreen/>
   </div>
@@ -18,7 +18,33 @@ import RequireScreen from "@/components/RequireScreen";
 
 export default {
   name: 'App',
-  components: {RequireScreen, FullScreen, Timer, Background, Logo}
+  components: {RequireScreen, FullScreen, Timer, Background, Logo},
+  data() {
+    return {
+      index: 0,
+      countries: [
+        {name: 'New Zealand', timeZone: 13 - this.$timeZone},
+        {name: 'Sydney', timeZone: 11 - this.$timeZone},
+        {name: 'Brisbane', timeZone: 10 - this.$timeZone},
+        {name: 'Seoul', timeZone: 9 - this.$timeZone},
+        {name: 'Hongkong / Singapore', timeZone: 8 - this.$timeZone},
+        {name: 'Vietnam', timeZone: 7 - this.$timeZone},
+      ]
+    };
+  },
+  methods: {
+    endTimeEvent() {
+      this.index++;
+    }
+  },
+  computed: {
+    country() {
+      if (this.countries[this.index] === undefined) {
+        this.index = this.countries.length - 1;
+      }
+      return this.countries[this.index];
+    }
+  }
 };
 </script>
 

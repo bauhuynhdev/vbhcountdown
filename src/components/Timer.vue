@@ -1,12 +1,6 @@
 <template>
   <div id="timer">
-    <div :class="[showTimerCircle ? 'show' : 'hide']" class="countdown-circle">
-      <div class="timer" :class="{'run-circle-timer': showTimerCircle}">
-        <div class="mask"></div>
-      </div>
-      <div class="seconds">{{ s }}</div>
-    </div>
-    <div :class="[!showTimerCircle ? 'show' : 'hide']" class="countdown">
+    <div class="countdown">
       <div>{{ d }}<span>Days</span></div>
       <div>{{ h }}<span>Hours</span></div>
       <div>{{ m }}<span>Minutes</span></div>
@@ -51,9 +45,6 @@ export default {
         return true;
       }
       return this.d === 0 && this.h === 0 && this.m === 0 && this.s < 1;
-    },
-    showTimerCircle() {
-      return this.d === 0 && this.h === 0 && this.m === 0 && this.s <= 30;
     }
   },
   methods: {
@@ -97,66 +88,6 @@ export default {
   position: fixed;
   width: 100%;
   height: 100%;
-
-  & > .countdown-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    & > .seconds {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 15em;
-    }
-
-    .timer {
-      background: -webkit-linear-gradient(left, #000 50%, #eee 50%);
-      border-radius: 100%;
-      height: calc(var(--size) * 1px);
-      width: calc(var(--size) * 1px);
-      position: relative;
-      -webkit-animation: time calc(var(--duration) * 1s) steps(1000, start) infinite;
-      mask: radial-gradient(transparent 65%, #000 50%);
-    }
-
-    .mask {
-      border-radius: 100% 0 0 100% / 50% 0 0 50%;
-      height: 100%;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 50%;
-      -webkit-animation: mask calc(var(--duration) * 1s) steps(500, start) infinite;
-      -webkit-transform-origin: 100% 50%;
-    }
-
-    @-webkit-keyframes time {
-      100% {
-        -webkit-transform: rotate(360deg);
-      }
-    }
-    @-webkit-keyframes mask {
-      0% {
-        background: #eee;
-        -webkit-transform: rotate(0deg);
-      }
-      50% {
-        background: #eee;
-        -webkit-transform: rotate(-180deg);
-      }
-      50.01% {
-        background: #000000;
-        -webkit-transform: rotate(0deg);
-      }
-      100% {
-        background: #000000;
-        -webkit-transform: rotate(-180deg);
-      }
-    }
-  }
 
   & > .countdown {
     position: absolute;

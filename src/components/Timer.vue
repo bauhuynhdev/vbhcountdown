@@ -41,10 +41,7 @@ export default {
   },
   computed: {
     endTime() {
-      if (this.d < 0) {
-        return true;
-      }
-      return this.d === 0 && this.h === 0 && this.m === 0 && this.s < 1;
+      return this.d < 0;
     }
   },
   methods: {

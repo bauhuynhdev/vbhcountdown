@@ -6,7 +6,10 @@
       <div>{{ m }}<span>Minutes</span></div>
       <div>{{ s }}<span>Seconds</span></div>
       <div class="country-name">
+        <div v-if="typeof country.flag === 'string'" class="flag"><img :src="flagPath(country.flag)"></div>
+        <div v-if="Array.isArray(country.flag) && country.flag[0] !== undefined" class="flag"><img :src="flagPath(country.flag[0])"></div>
         <h2>{{ country.name }}</h2>
+        <div v-if="Array.isArray(country.flag) && country.flag[1] !== undefined" class="flag"><img :src="flagPath(country.flag[1])"></div>
       </div>
     </div>
   </div>
@@ -45,6 +48,9 @@ export default {
     }
   },
   methods: {
+    flagPath(flag) {
+      return require('../assets/flags/' + flag + '-flag.gif');
+    },
     setTimer() {
       const day = moment().format('DD');
       const dateTimeText = day + '/12/2021 23:59:59';
@@ -88,6 +94,7 @@ export default {
 
   & > .countdown {
     position: absolute;
+    width: 100%;
     top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -96,12 +103,28 @@ export default {
     color: #ffffff;
     text-align: center;
 
-    & > div.country-name > h2 {
-      margin-top: 12px;
-      margin-bottom: 0;
-      text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
-      color: #000000;
-      text-transform: uppercase;
+    & > div.country-name {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > .flag {
+        width: 120px;
+        height: 80px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          border: 1px solid #000000;
+        }
+      }
+
+      & > h2 {
+        margin: 12px 20px 0;
+        text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+        color: #000000;
+        text-transform: uppercase;
+      }
     }
 
     & > div:not(.country-name) {

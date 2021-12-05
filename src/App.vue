@@ -23,12 +23,12 @@ export default {
     return {
       index: 0,
       countries: [
-        {name: 'New Zealand', timeZone: 13 - this.$timeZone},
-        {name: 'Sydney', timeZone: 11 - this.$timeZone},
-        {name: 'Brisbane', timeZone: 10 - this.$timeZone},
-        {name: 'Seoul', timeZone: 9 - this.$timeZone},
-        {name: 'Hongkong / Singapore', timeZone: 8 - this.$timeZone},
-        {name: 'Vietnam', timeZone: 7 - this.$timeZone},
+        {name: 'New Zealand', timeZone: 13 - this.$timeZone, flag: 'nz'},
+        {name: 'Sydney', timeZone: 11 - this.$timeZone, flag: 'as'},
+        {name: 'Brisbane', timeZone: 10 - this.$timeZone, flag: 'as'},
+        {name: 'Seoul', timeZone: 9 - this.$timeZone, flag: 'ks'},
+        {name: 'Hongkong / Singapore', timeZone: 8 - this.$timeZone, flag: ['ch', 'sn']},
+        {name: 'Vietnam', timeZone: 7 - this.$timeZone, flag: 'vm'},
       ]
     };
   },

@@ -2,7 +2,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 const request = axios.create({
-    baseURL: 'https://hooks.slack.com/services/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',
+    baseURL: 'https://hooks.slack.com/services/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',
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
     },

@@ -1,11 +1,10 @@
 <template>
   <div>
-    <Background class="hide"/>
+    <Background/>
     <Logo/>
     <Timer :country="country" @endTimeEvent="endTimeEvent"/>
     <FullScreen/>
     <RequireScreen/>
-    <!--    <HappyNewYear class="show"/>-->
   </div>
 </template>
 

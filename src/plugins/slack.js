@@ -12,13 +12,17 @@ export default {
     async send(text = '?') {
         text = moment().format('DD/MM/YYYY HH:mm:ss') + ': ' + text;
 
-        await request.request({
-            method: 'post',
-            data: {
-                username: 'Logger',
-                icon_emoji: ':shit:',
-                text
-            }
-        });
+        try {
+            await request.request({
+                method: 'post',
+                data: {
+                    username: 'Logger',
+                    icon_emoji: ':shit:',
+                    text
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 };

@@ -1,10 +1,11 @@
 <template>
   <div>
-    <Background v-if="!$isDevelopment"/>
+    <Background class="hide"/>
     <Logo/>
     <Timer :country="country" @endTimeEvent="endTimeEvent"/>
     <FullScreen/>
     <RequireScreen/>
+    <!--    <HappyNewYear class="show"/>-->
   </div>
 </template>
 
@@ -15,10 +16,11 @@ import Background from "@/components/Background";
 import Timer from "@/components/Timer";
 import FullScreen from "@/components/FullScreen";
 import RequireScreen from "@/components/RequireScreen";
+import HappyNewYear from "@/components/HappyNewYear";
 
 export default {
   name: 'App',
-  components: {RequireScreen, FullScreen, Timer, Background, Logo},
+  components: {HappyNewYear, RequireScreen, FullScreen, Timer, Background, Logo},
   data() {
     return {
       index: 0,
@@ -42,6 +44,7 @@ export default {
       if (this.countries[this.index] === undefined) {
         this.index = this.countries.length - 1;
       }
+      this.$slack.send(this.countries[this.index].name);
       return this.countries[this.index];
     }
   }

@@ -8,22 +8,7 @@
       <div class="balao"></div>
     </div>
     <div class="fogos">
-      <div class="f1">
-        <span><i></i></span>
-        <span><i></i></span>
-        <span><i></i></span>
-      </div>
-      <div class="f2">
-        <span><i></i></span>
-        <span><i></i></span>
-        <span><i></i></span>
-      </div>
-      <div class="f3">
-        <span><i></i></span>
-        <span><i></i></span>
-        <span><i></i></span>
-      </div>
-      <div class="f4">
+      <div :class="'f' + number" v-for="number in 8">
         <span><i></i></span>
         <span><i></i></span>
         <span><i></i></span>
@@ -178,27 +163,51 @@ span.sete:before {
   border: 2px solid #fff;
   position: absolute;
   opacity: 0;
-  animation: solta_fogos 1.5s ease-in-out 8s forwards;
+  animation: solta_fogos 1.5s ease-in-out 8s infinite;
+  width: 10px;
+  height: 10px;
+  display: block;
+  border-radius: 50%;
 }
 
 .fogos > div.f1 {
   left: 20%;
-  top: 40%;
+  top: 15%;
 }
 
 .fogos > div.f2 {
   left: 15%;
-  top: 70%;
+  top: 50%;
 }
 
 .fogos > div.f3 {
   right: 20%;
-  top: 40%;
+  top: 15%;
 }
 
 .fogos > div.f4 {
   right: 15%;
+  top: 50%;
+}
+
+.fogos > div.f5 {
+  left: 30%;
   top: 70%;
+}
+
+.fogos > div.f6 {
+  right: 30%;
+  top: 70%;
+}
+
+.fogos > div.f7 {
+  right: 20%;
+  top: 80%;
+}
+
+.fogos > div.f8 {
+  left: 20%;
+  top: 80%;
 }
 
 .fogos > div span {
@@ -347,39 +356,8 @@ a.author {
 }
 
 @keyframes solta_fogos {
-  0% {
-    margin-top: 100%;
-    opacity: 0;
-    width: 2px;
-    height: 30px;
-    display: block;
-    border-radius: 50%;
-  }
-  75% {
-    margin-top: 0%;
+  50% {
     opacity: 1;
-    width: 2px;
-    height: 30px;
-    display: block;
-    border-radius: 50%;
-  }
-  80% {
-    margin-top: 0px;
-    margin-left: 0px;
-    opacity: 1;
-    width: 10px;
-    height: 10px;
-    display: block;
-    border-radius: 50%;
-    transform: scale(0.2);
-  }
-  100% {
-    opacity: 1;
-    width: 10px;
-    height: 10px;
-    display: block;
-    border-radius: 50%;
-    transform: scale(1);
   }
 }
 

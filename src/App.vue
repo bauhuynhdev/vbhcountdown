@@ -1,9 +1,12 @@
 <template>
   <div>
-    <Background/>
+    <Background v-if="!$isDevelopment"/>
     <Logo/>
     <Timer :country="country" @endTimeEvent="endTimeEvent"/>
     <FullScreen/>
+    <transition name="fade">
+      <HappyNewYear v-if="$store.state.isHappyNewYear"/>
+    </transition>
     <RequireScreen/>
   </div>
 </template>
@@ -16,6 +19,7 @@ import Timer from "@/components/Timer";
 import FullScreen from "@/components/FullScreen";
 import RequireScreen from "@/components/RequireScreen";
 import HappyNewYear from "@/components/HappyNewYear";
+import moment from "moment";
 
 export default {
   name: 'App',
@@ -30,20 +34,49 @@ export default {
         {name: 'Seoul', timeZone: 9 - this.$timeZone, flag: 'ks'},
         {name: 'Hongkong / Singapore', timeZone: 8 - this.$timeZone, flag: ['ch', 'sn']},
         {name: 'Vietnam', timeZone: 7 - this.$timeZone, flag: 'vm'},
-      ]
+      ],
+      isFirstTime: true
     };
   },
   methods: {
+    unixTargetNewYear() {
+      const day = moment().format('DD');
+      const dateTimeText = day + '/12/2021 23:59:59';
+      return moment(dateTimeText, 'DD/MM/YYYY HH:mm:ss').unix();
+    },
+    unixNowNewYear(timeZone) {
+      return moment().add(timeZone, 'hour').unix();
+    },
     endTimeEvent() {
-      this.index++;
+      setTimeout(() => {
+        this.index++;
+        this.$store.state.isHappyNewYear = false;
+      }, 30000);
+    },
+    scanCurrentIndex() {
+      let pass = false;
+      while (!pass) {
+        if (this.countries[this.index] === undefined) {
+          this.index = 0;
+          pass = true;
+        }
+        const country = this.countries[this.index];
+        const target = this.unixTargetNewYear();
+        const now = this.unixNowNewYear(country.timeZone);
+        if (target > now) {
+          pass = true;
+        } else {
+          this.index++;
+        }
+      }
     }
   },
   computed: {
     country() {
-      if (this.countries[this.index] === undefined) {
-        this.index = this.countries.length - 1;
+      if (this.isFirstTime) {
+        this.isFirstTime = false;
+        this.scanCurrentIndex();
       }
-      this.$slack.send(this.countries[this.index].name);
       return this.countries[this.index];
     }
   }
@@ -84,5 +117,13 @@ body {
 .show {
   opacity: 1;
   transition: all .25s ease-in-out;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>

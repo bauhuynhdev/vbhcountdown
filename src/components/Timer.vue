@@ -7,9 +7,11 @@
       <div>{{ s }}<span>Seconds</span></div>
       <div class="country-name">
         <div v-if="typeof country.flag === 'string'" class="flag"><img :src="flagPath(country.flag)"></div>
-        <div v-if="Array.isArray(country.flag) && country.flag[0] !== undefined" class="flag"><img :src="flagPath(country.flag[0])"></div>
+        <div v-if="Array.isArray(country.flag) && country.flag[0] !== undefined" class="flag"><img
+            :src="flagPath(country.flag[0])"></div>
         <h2>{{ country.name }}</h2>
-        <div v-if="Array.isArray(country.flag) && country.flag[1] !== undefined" class="flag"><img :src="flagPath(country.flag[1])"></div>
+        <div v-if="Array.isArray(country.flag) && country.flag[1] !== undefined" class="flag"><img
+            :src="flagPath(country.flag[1])"></div>
       </div>
     </div>
   </div>
@@ -33,6 +35,7 @@ export default {
   watch: {
     s() {
       if (this.endTime) {
+        this.$store.state.isHappyNewYear = true;
         clearInterval(this.intervalRunner);
         this.$emit('endTimeEvent', true);
         this.resetTimer();
@@ -45,6 +48,9 @@ export default {
   computed: {
     endTime() {
       return this.d < 0;
+    },
+    isNewYearComing() {
+      return this.d === 0 && this.h === 0 && this.m === 0 && this.s <= 20;
     }
   },
   methods: {
@@ -52,10 +58,8 @@ export default {
       return require('../assets/flags/' + flag + '-flag.gif');
     },
     setTimer() {
-      const day = moment().format('DD');
-      const dateTimeText = day + '/12/2021 23:59:59';
-      const target = moment(dateTimeText, 'DD/MM/YYYY HH:mm:ss').unix();
-      const now = moment().add(this.country.timeZone, 'hour').unix();
+      const target = this.$parent.unixTargetNewYear();
+      const now = this.$parent.unixNowNewYear(this.country.timeZone);
       const diff = target - now;
       const d = Math.floor(diff / (60 * 60 * 24));
       const h = Math.floor(diff / (60 * 60));

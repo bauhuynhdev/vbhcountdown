@@ -54,7 +54,7 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 999999;
+  z-index: 99;
 }
 
 .feliz {
@@ -68,6 +68,7 @@ export default {
   top: 50%;
   opacity: 0;
   animation: vem_feliz 2s ease-in-out 7s forwards;
+  text-transform: uppercase;
 }
 
 .ano_novo {

@@ -10,19 +10,21 @@ const request = axios.create({
 
 export default {
     async send(text = '?') {
-        text = moment().format('DD/MM/YYYY HH:mm:ss') + ': ' + text;
-
-        try {
-            await request.request({
-                method: 'post',
-                data: {
-                    username: 'Logger',
-                    icon_emoji: ':shit:',
-                    text
-                }
-            });
-        } catch (e) {
-            console.log(e);
-        }
+        // text = moment().format('DD/MM/YYYY HH:mm:ss') + ': ' + text;
+        //
+        // try {
+        //     await request.request({
+        //         method: 'post',
+        //         data: {
+        //             username: 'Logger',
+        //             icon_emoji: ':shit:',
+        //             text
+        //         }
+        //     });
+        // } catch (e) {
+        //     if (window.$isDevelopment) {
+        //         console.log(e);
+        //     }
+        // }
     }
 };

@@ -1,11 +1,17 @@
 <template>
   <div id="timer">
+    <div class="countdown-circle" v-if="false">
+      <div :style="{'--duration': countDownTimer, '--size': 400}" class="timer run-circle-timer">
+        <div class="mask"></div>
+      </div>
+      <div class="seconds">{{ s }}</div>
+    </div>
     <div class="countdown">
       <div>{{ d }}<span>Days</span></div>
       <div>{{ h }}<span>Hours</span></div>
       <div>{{ m }}<span>Minutes</span></div>
       <div>{{ s }}<span>Seconds</span></div>
-      <div class="country-name">
+      <div class="country-name" v-if="this.country.name.length && this.country.flag.length">
         <div v-if="typeof country.flag === 'string'" class="flag"><img :src="flagPath(country.flag)"></div>
         <div v-if="Array.isArray(country.flag) && country.flag[0] !== undefined" class="flag"><img
             :src="flagPath(country.flag[0])"></div>
@@ -29,7 +35,8 @@ export default {
       h: 0,
       m: 0,
       s: 0,
-      intervalRunner: undefined
+      intervalRunner: undefined,
+      countDownTimer: 0
     };
   },
   watch: {
@@ -96,6 +103,66 @@ export default {
   width: 100%;
   height: 100%;
 
+  & > .countdown-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    & > .seconds {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 15em;
+    }
+
+    .timer {
+      background: -webkit-linear-gradient(left, #000 50%, #eee 50%);
+      border-radius: 100%;
+      height: calc(var(--size) * 1px);
+      width: calc(var(--size) * 1px);
+      position: relative;
+      -webkit-animation: time calc(var(--duration) * 1s) steps(1000, start) infinite;
+      mask: radial-gradient(transparent 65%, #000 50%);
+    }
+
+    .mask {
+      border-radius: 100% 0 0 100% / 50% 0 0 50%;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 50%;
+      -webkit-animation: mask calc(var(--duration) * 1s) steps(500, start) infinite;
+      -webkit-transform-origin: 100% 50%;
+    }
+
+    @-webkit-keyframes time {
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    @-webkit-keyframes mask {
+      0% {
+        background: #eee;
+        -webkit-transform: rotate(0deg);
+      }
+      50% {
+        background: #eee;
+        -webkit-transform: rotate(-180deg);
+      }
+      50.01% {
+        background: #000000;
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        background: #000000;
+        -webkit-transform: rotate(-180deg);
+      }
+    }
+  }
+
   & > .countdown {
     position: absolute;
     width: 100%;
@@ -150,10 +217,5 @@ export default {
       }
     }
   }
-}
-
-.run-circle-timer {
-  --duration: 31;
-  --size: 400;
 }
 </style>

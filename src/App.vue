@@ -54,28 +54,29 @@ export default {
       }, 30000);
     },
     scanCurrentIndex() {
-      let pass = false;
-      while (!pass) {
-        if (this.countries[this.index] === undefined) {
-          this.index = 0;
-          pass = true;
-        }
-        const country = this.countries[this.index];
+      for (let i = 0; i < this.totalCountry; i++) {
+        const country = this.countries[i];
         const target = this.unixTargetNewYear();
         const now = this.unixNowNewYear(country.timeZone);
         if (target > now) {
-          pass = true;
-        } else {
-          this.index++;
+          return i;
         }
       }
+
+      return this.totalCountry;
     }
   },
   computed: {
+    totalCountry() {
+      return this.countries.length;
+    },
     country() {
       if (this.isFirstTime) {
         this.isFirstTime = false;
-        this.scanCurrentIndex();
+        this.index = this.scanCurrentIndex();
+      }
+      if (this.countries[this.index] === undefined) {
+        return {name: '', timeZone: 0, flag: ''};
       }
       return this.countries[this.index];
     }

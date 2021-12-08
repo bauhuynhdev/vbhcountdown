@@ -1,24 +1,24 @@
 <template>
   <div id="timer">
-    <div class="countdown-circle" v-if="false">
+    <div v-if="isNewYearComing" class="countdown-circle">
       <div :style="{'--duration': countDownTimer, '--size': 400}" class="timer run-circle-timer">
         <div class="mask"></div>
       </div>
       <div class="seconds">{{ s }}</div>
     </div>
-    <div class="countdown">
+    <div v-if="!isNewYearComing" class="countdown">
       <div>{{ d }}<span>Days</span></div>
       <div>{{ h }}<span>Hours</span></div>
       <div>{{ m }}<span>Minutes</span></div>
       <div>{{ s }}<span>Seconds</span></div>
-      <div class="country-name" v-if="this.country.name.length && this.country.flag.length">
-        <div v-if="typeof country.flag === 'string'" class="flag"><img :src="flagPath(country.flag)"></div>
-        <div v-if="Array.isArray(country.flag) && country.flag[0] !== undefined" class="flag"><img
-            :src="flagPath(country.flag[0])"></div>
-        <h2>{{ country.name }}</h2>
-        <div v-if="Array.isArray(country.flag) && country.flag[1] !== undefined" class="flag"><img
-            :src="flagPath(country.flag[1])"></div>
-      </div>
+    </div>
+    <div v-if="this.country.name.length && this.country.flag.length" class="country-name">
+      <div v-if="typeof country.flag === 'string'" class="flag"><img :src="flagPath(country.flag)"></div>
+      <div v-if="Array.isArray(country.flag) && country.flag[0] !== undefined" class="flag"><img
+          :src="flagPath(country.flag[0])"></div>
+      <h2>{{ country.name }}</h2>
+      <div v-if="Array.isArray(country.flag) && country.flag[1] !== undefined" class="flag"><img
+          :src="flagPath(country.flag[1])"></div>
     </div>
   </div>
 </template>
@@ -42,7 +42,9 @@ export default {
   watch: {
     s() {
       if (this.endTime) {
+        this.countDownTimer = 0;
         this.$store.state.isHappyNewYear = true;
+        this.$store.state.isCountDownTimer = false;
         clearInterval(this.intervalRunner);
         this.$emit('endTimeEvent', true);
         this.resetTimer();
@@ -54,10 +56,19 @@ export default {
   },
   computed: {
     endTime() {
-      return this.d < 0;
+      return this.d === 0 && this.h === 0 && this.m === 0 && this.s === 0;
     },
     isNewYearComing() {
-      return this.d === 0 && this.h === 0 && this.m === 0 && this.s <= 20;
+      if (this.d === 0 && this.h === 0 && this.m === 0 && this.s <= 30) {
+        if (this.countDownTimer === 0) {
+          this.countDownTimer = this.s;
+        }
+        if (this.s > 0) {
+          this.$store.state.isCountDownTimer = true;
+        }
+        return true;
+      }
+      return false;
     }
   },
   methods: {
@@ -166,7 +177,7 @@ export default {
   & > .countdown {
     position: absolute;
     width: 100%;
-    top: 80%;
+    top: 72%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 3em;
@@ -174,31 +185,7 @@ export default {
     color: #ffffff;
     text-align: center;
 
-    & > div.country-name {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      & > .flag {
-        width: 120px;
-        height: 80px;
-
-        img {
-          width: 100%;
-          height: 100%;
-          border: 1px solid #000000;
-        }
-      }
-
-      & > h2 {
-        margin: 12px 20px 0;
-        text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
-        color: #000000;
-        text-transform: uppercase;
-      }
-    }
-
-    & > div:not(.country-name) {
+    & > div {
       display: inline-block;
       min-width: 90px;
       padding: 15px 10px;
@@ -215,6 +202,39 @@ export default {
         font-size: .35em;
         font-weight: 400;
       }
+    }
+  }
+
+  & > div.country-name {
+    position: absolute;
+    width: 100%;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    font-weight: 100;
+    color: #ffffff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > .flag {
+      width: 120px;
+      height: 80px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #000000;
+      }
+    }
+
+    & > h2 {
+      margin: 12px 20px 0;
+      text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+      color: #000000;
+      text-transform: uppercase;
     }
   }
 }

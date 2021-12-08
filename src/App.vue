@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Background v-if="!$isDevelopment"/>
+    <transition name="fade">
+      <Background v-if="!$store.state.isCountDownTimer"/>
+    </transition>
     <Logo/>
     <Timer :country="country" @endTimeEvent="endTimeEvent"/>
     <FullScreen/>

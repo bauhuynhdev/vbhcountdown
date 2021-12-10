@@ -1,14 +1,10 @@
 <template>
   <div>
-    <transition name="fade">
-      <Background v-if="!$store.state.isCountDownTimer"/>
-    </transition>
+    <Background v-if="!$store.state.isCountDownTimer"/>
     <Logo/>
     <Timer :country="country" @endTimeEvent="endTimeEvent"/>
     <FullScreen/>
-    <transition name="fade">
-      <HappyNewYear v-if="$store.state.isHappyNewYear"/>
-    </transition>
+    <HappyNewYear v-if="$store.state.isHappyNewYear || country.name.length === 0"/>
     <RequireScreen/>
   </div>
 </template>
@@ -42,7 +38,7 @@ export default {
   },
   methods: {
     unixTargetNewYear() {
-      const dateTimeText = '09/12/2021 23:59:59';
+      const dateTimeText = '10/12/2021 23:59:59';
       return moment(dateTimeText, 'DD/MM/YYYY HH:mm:ss').unix();
     },
     unixNowNewYear(timeZone) {

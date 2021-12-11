@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     unixTargetNewYear() {
-      const dateTimeText = '10/12/2021 23:59:59';
+      const dateTimeText = '31/12/2021 23:59:59';
       return moment(dateTimeText, 'DD/MM/YYYY HH:mm:ss').unix();
     },
     unixNowNewYear(timeZone) {
